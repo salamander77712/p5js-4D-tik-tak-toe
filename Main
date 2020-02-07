@@ -1,0 +1,388 @@
+function setup() {
+  createCanvas(800, 800);
+  let turn = "x";
+  let winner = "";
+//Classes
+//Button Class
+  class Button {
+  constructor(ixp, iyp) {
+    this.posX=ixp; // button x postion
+    this.posY=iyp; // button y position
+    this.state="";
+  }
+  checkMouse() {
+    if (mouseX > this.posX && mouseX < this.posX + width/13 && mouseY > this.posY && mouseY < this.posY + height/13){
+      return true;      
+    }
+    else{
+     return false; 
+    }
+  }
+  do(){
+    if(this.state == ""){
+      if(turn == "x"){
+        this.state = "x";
+        turn = "o";
+        return 0;
+      }
+      if(turn == "o"){
+        this.state = "o";
+        turn = "x";
+        return 0;
+      }
+    }
+  }
+  display(){
+    fill(220);
+    rect(this.posX,this.posY,width/13,height/13);
+    fill(0,0,0);
+    textSize(80);
+    text(this.state,this.posX + 10,this.posY + height/13 - 10);
+  }
+  handleClick(){
+    if(this.checkMouse()){
+      this.do();
+    }
+  }
+}
+//Storage Class
+  class Storage{
+    constructor(ib1, ib2, ib3){
+      this.cell1 = ib1;
+      this.cell2 = ib2;
+      this.cell3 = ib3;
+      this.state = "";
+    }
+    store(){
+      if(this.cell1.state == "x" && this.cell2.state == "x" && this.cell3.state == "x"){
+        this.state = "wx";
+        winner = "x";
+      }
+      if(this.cell1.state == "o" && this.cell2.state == "o" && this.cell3.state == "o"){
+        this.state = "wo";
+        winner = "o"
+      }
+      if(this.cell1.state == "x" && this.cell2.state == "x" && this.cell3.state == ""){
+        this.state = "px";
+      }
+      if(this.cell1.state == "" && this.cell2.state == "x" && this.cell3.state == "x"){
+        this.state = "px";
+      }
+      if(this.cell1.state == "x" && this.cell2.state == "" && this.cell3.state == "x"){
+        this.state = "px";
+      }
+      if(this.cell1.state == "o" && this.cell2.state == "o" && this.cell3.state == ""){
+        this.state = "po";
+      }
+      if(this.cell1.state == "" && this.cell2.state == "o" && this.cell3.state == "o"){
+        this.state = "po";
+      }
+      if(this.cell1.state == "o" && this.cell2.state == "" && this.cell3.state == "o"){
+        this.state = "po";
+      }
+    }
+  }
+//Instances
+  bA1 = new Button(width/13,height/13);
+  bA2 = new Button(2*width/13,height/13);
+  bA3 = new Button(3*width/13,height/13);
+  bA4 = new Button(width/13,2*height/13);
+  bA5 = new Button(2*width/13,2*height/13);
+  bA6 = new Button(3*width/13,2*height/13);
+  bA7 = new Button(width/13,3*height/13);
+  bA8 = new Button(2*width/13,3*height/13);
+  bA9 = new Button(3*width/13,3*height/13);
+  
+  bB1 = new Button(5*width/13,height/13);
+  bB2 = new Button(6*width/13,height/13);
+  bB3 = new Button(7*width/13,height/13);
+  bB4 = new Button(5*width/13,2*height/13);
+  bB5 = new Button(6*width/13,2*height/13);
+  bB6 = new Button(7*width/13,2*height/13);
+  bB7 = new Button(5*width/13,3*height/13);
+  bB8 = new Button(6*width/13,3*height/13);
+  bB9 = new Button(7*width/13,3*height/13);
+  
+  bC1 = new Button(9*width/13,height/13);
+  bC2 = new Button(10*width/13,height/13);
+  bC3 = new Button(11*width/13,height/13);
+  bC4 = new Button(9*width/13,2*height/13);
+  bC5 = new Button(10*width/13,2*height/13);
+  bC6 = new Button(11*width/13,2*height/13);
+  bC7 = new Button(9*width/13,3*height/13);
+  bC8 = new Button(10*width/13,3*height/13);
+  bC9 = new Button(11*width/13,3*height/13);
+  
+  bD1 = new Button(width/13,5*height/13);
+  bD2 = new Button(2*width/13,5*height/13);
+  bD3 = new Button(3*width/13,5*height/13);
+  bD4 = new Button(width/13,6*height/13);
+  bD5 = new Button(2*width/13,6*height/13);
+  bD6 = new Button(3*width/13,6*height/13);
+  bD7 = new Button(width/13,7*height/13);
+  bD8 = new Button(2*width/13,7*height/13);
+  bD9 = new Button(3*width/13,7*height/13);
+  
+  bE1 = new Button(5*width/13,5*height/13);
+  bE2 = new Button(6*width/13,5*height/13);
+  bE3 = new Button(7*width/13,5*height/13);
+  bE4 = new Button(5*width/13,6*height/13);
+  bE5 = new Button(6*width/13,6*height/13);
+  bE6 = new Button(7*width/13,6*height/13);
+  bE7 = new Button(5*width/13,7*height/13);
+  bE8 = new Button(6*width/13,7*height/13);
+  bE9 = new Button(7*width/13,7*height/13);
+  
+  bF1 = new Button(9*width/13,5*height/13);
+  bF2 = new Button(10*width/13,5*height/13);
+  bF3 = new Button(11*width/13,5*height/13);
+  bF4 = new Button(9*width/13,6*height/13);
+  bF5 = new Button(10*width/13,6*height/13);
+  bF6 = new Button(11*width/13,6*height/13);
+  bF7 = new Button(9*width/13,7*height/13);
+  bF8 = new Button(10*width/13,7*height/13);
+  bF9 = new Button(11*width/13,7*height/13);
+  
+  bG1 = new Button(width/13,9*height/13);
+  bG2 = new Button(2*width/13,9*height/13);
+  bG3 = new Button(3*width/13,9*height/13);
+  bG4 = new Button(width/13,10*height/13);
+  bG5 = new Button(2*width/13,10*height/13);
+  bG6 = new Button(3*width/13,10*height/13);
+  bG7 = new Button(width/13,11*height/13);
+  bG8 = new Button(2*width/13,11*height/13);
+  bG9 = new Button(3*width/13,11*height/13);
+  
+  bH1 = new Button(5*width/13,9*height/13);
+  bH2 = new Button(6*width/13,9*height/13);
+  bH3 = new Button(7*width/13,9*height/13);
+  bH4 = new Button(5*width/13,10*height/13);
+  bH5 = new Button(6*width/13,10*height/13);
+  bH6 = new Button(7*width/13,10*height/13);
+  bH7 = new Button(5*width/13,11*height/13);
+  bH8 = new Button(6*width/13,11*height/13);
+  bH9 = new Button(7*width/13,11*height/13);
+  
+  bI1 = new Button(9*width/13,9*height/13);
+  bI2 = new Button(10*width/13,9*height/13);
+  bI3 = new Button(11*width/13,9*height/13);
+  bI4 = new Button(9*width/13,10*height/13);
+  bI5 = new Button(10*width/13,10*height/13);
+  bI6 = new Button(11*width/13,10*height/13);
+  bI7 = new Button(9*width/13,11*height/13);
+  bI8 = new Button(10*width/13,11*height/13);
+  bI9 = new Button(11*width/13,11*height/13);
+}
+
+function draw() {
+  background(220);
+  bA1.display();
+  bA2.display();
+  bA3.display();
+  bA4.display();
+  bA5.display();
+  bA6.display();
+  bA7.display();
+  bA8.display();
+  bA9.display();
+  
+  bB1.display();
+  bB2.display();
+  bB3.display();
+  bB4.display();
+  bB5.display();
+  bB6.display();
+  bB7.display();
+  bB8.display();
+  bB9.display();
+  
+  bC1.display();
+  bC2.display();
+  bC3.display();
+  bC4.display();
+  bC5.display();
+  bC6.display();
+  bC7.display();
+  bC8.display();
+  bC9.display();
+  
+  bD1.display();
+  bD2.display();
+  bD3.display();
+  bD4.display();
+  bD5.display();
+  bD6.display();
+  bD7.display();
+  bD8.display();
+  bD9.display();
+  
+  bE1.display();
+  bE2.display();
+  bE3.display();
+  bE4.display();
+  bE5.display();
+  bE6.display();
+  bE7.display();
+  bE8.display();
+  bE9.display();
+  
+  bF1.display();
+  bF2.display();
+  bF3.display();
+  bF4.display();
+  bF5.display();
+  bF6.display();
+  bF7.display();
+  bF8.display();
+  bF9.display();
+
+  bG1.display();
+  bG2.display();
+  bG3.display();
+  bG4.display();
+  bG5.display();
+  bG6.display();
+  bG7.display();
+  bG8.display();
+  bG9.display();
+  
+  bH1.display();
+  bH2.display();
+  bH3.display();
+  bH4.display();
+  bH5.display();
+  bH6.display();
+  bH7.display();
+  bH8.display();
+  bH9.display();
+  
+  bI1.display();
+  bI2.display();
+  bI3.display();
+  bI4.display();
+  bI5.display();
+  bI6.display();
+  bI7.display();
+  bI8.display();
+  bI9.display();
+  
+  mouseClicked = function(){
+    bA1.handleClick();
+    bA2.handleClick();
+    bA3.handleClick();
+    bA4.handleClick();
+    bA5.handleClick();
+    bA6.handleClick();
+    bA7.handleClick();
+    bA8.handleClick();
+    bA9.handleClick();
+    
+    bB1.handleClick();
+    bB2.handleClick();
+    bB3.handleClick();
+    bB4.handleClick();
+    bB5.handleClick();
+    bB6.handleClick();
+    bB7.handleClick();
+    bB8.handleClick();
+    bB9.handleClick();
+    
+    bC1.handleClick();
+    bC2.handleClick();
+    bC3.handleClick();
+    bC4.handleClick();
+    bC5.handleClick();
+    bC6.handleClick();
+    bC7.handleClick();
+    bC8.handleClick();
+    bC9.handleClick();
+    
+    bD1.handleClick();
+    bD2.handleClick();
+    bD3.handleClick();
+    bD4.handleClick();
+    bD5.handleClick();
+    bD6.handleClick();
+    bD7.handleClick();
+    bD8.handleClick();
+    bD9.handleClick();
+    
+    bE1.handleClick();
+    bE2.handleClick();
+    bE3.handleClick();
+    bE4.handleClick();
+    bE5.handleClick();
+    bE6.handleClick();
+    bE7.handleClick();
+    bE8.handleClick();
+    bE9.handleClick();
+    
+    bF1.handleClick();
+    bF2.handleClick();
+    bF3.handleClick();
+    bF4.handleClick();
+    bF5.handleClick();
+    bF6.handleClick();
+    bF7.handleClick();
+    bF8.handleClick();
+    bF9.handleClick();
+  
+    bG1.handleClick();
+    bG2.handleClick();
+    bG3.handleClick();
+    bG4.handleClick();
+    bG5.handleClick();
+    bG6.handleClick();
+    bG7.handleClick();
+    bG8.handleClick();
+    bG9.handleClick();
+    
+    bH1.handleClick();
+    bH2.handleClick();
+    bH3.handleClick();
+    bH4.handleClick();
+    bH5.handleClick();
+    bH6.handleClick();
+    bH7.handleClick();
+    bH8.handleClick();
+    bH9.handleClick();
+    
+    bI1.handleClick();
+    bI2.handleClick();
+    bI3.handleClick();
+    bI4.handleClick();
+    bI5.handleClick();
+    bI6.handleClick();
+    bI7.handleClick();
+    bI8.handleClick();
+    bI9.handleClick();
+  }
+  stroke(0);
+  for(var i = 1; i < 13; i ++){
+      line(i * width / 13, 0, i * width / 13, height);
+    }
+    for(var j = 1; j < 13; j ++){
+      line(0, j * height / 13, width, j * height / 13);
+    }
+  fill(220);
+  noStroke();
+  rect(0,0,width,height / 13);
+  rect(0,4*height/13,width,height/13);
+  rect(0,8*height/13,width,height/13);
+  rect(0,12*height/13,width,height/13);
+  rect(0,0,width / 13,height);
+  rect(4*height/13,0,width / 13,height);
+  rect(8*height/13,0,width / 13,height);
+  rect(12*height/13,0,width / 13,height);
+//board
+  /*if(winner == "x"){
+    background(220);
+    textSize(300);
+    text("X Wins!",width/2,height/2);
+  }
+  if(winner == "o"){
+      background(220);
+    textSize(300);
+    text("O Wins!",width/2,height/2);
+  }*/
+}
